@@ -10,9 +10,7 @@ public class MainActivity extends AppCompatActivity
 {
     Button mc, mr, m1, m2, ac, c, pro, root, _7, _8, _9, _4, _5, _6, _1, _2, _3, _0, divide, multiply, minus, plus, equal, point;
     TextView view1, saved, view2;
-    double start, second;
-    String option="else";
-    boolean firstminus=true, firstdivide=true, firstmultiply=true, firstplus=true, firstpro=true;
+    boolean firstminus=false, firstdivide=false, firstmultiply=false, firstplus=false, firstpro=false, firstroot=false;
 
     @Override protected void onCreate(Bundle savedInstanceState)
     {
@@ -72,9 +70,7 @@ public class MainActivity extends AppCompatActivity
             if((Double.parseDouble(view2.getText().toString())-Double.parseDouble(view1.getText().toString())
             ==Math.floor(Double.parseDouble(view2.getText().toString())-Double.parseDouble(view1.getText().toString())))
             &&!Double.isInfinite(Double.parseDouble(view2.getText().toString())-Double.parseDouble(view1.getText().toString())))
-            {
-                view2.setText(String.valueOf((int)Double.parseDouble(view2.getText().toString())-(int)Double.parseDouble(view1.getText().toString())));
-            }
+            { view2.setText(String.valueOf((int)Double.parseDouble(view2.getText().toString())-(int)Double.parseDouble(view1.getText().toString()))); }
             else view2.setText(String.valueOf(Double.parseDouble(view2.getText().toString())-Double.parseDouble(view1.getText().toString())));
         }
     }
@@ -87,17 +83,14 @@ public class MainActivity extends AppCompatActivity
             if((Double.parseDouble(view2.getText().toString())+Double.parseDouble(view1.getText().toString())
             ==Math.floor(Double.parseDouble(view2.getText().toString())+Double.parseDouble(view1.getText().toString())))
             &&!Double.isInfinite(Double.parseDouble(view2.getText().toString())+Double.parseDouble(view1.getText().toString())))
-            {
-                view2.setText(String.valueOf((int)Double.parseDouble(view2.getText().toString())+(int)Double.parseDouble(view1.getText().toString())));
-            }
+            { view2.setText(String.valueOf((int)Double.parseDouble(view2.getText().toString())+(int)Double.parseDouble(view1.getText().toString()))); }
             else view2.setText(String.valueOf(Double.parseDouble(view2.getText().toString())+Double.parseDouble(view1.getText().toString())));
         }
     }
 
     public void AC(View view)
     {
-        start=0;
-        second=0;
+        Operations.start=0;
         view1.setText("");
         view2.setText("");
     }
@@ -110,45 +103,141 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(), "You can't use that with 0 or empty field!", Toast.LENGTH_SHORT).show();
         else
         {
-            point.setEnabled(true);
-            if(firstpro)
-            {
-                start=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-                option="pro";
-                firstpro=false;
-            }
-            else
-            {
-                start%=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-            }
+            Operations.Operation(point, firstpro, view1);
+            Operations.option="pro";
         }
     }
 
     public void Root(View view)
     {
-        point.setEnabled(true);
         if(view1.getText().toString().equals("") || view1.getText().toString().equals("0"))
         Toast.makeText(getApplicationContext(), "You can't use that with 0 or empty field!", Toast.LENGTH_SHORT).show();
         else
         {
-            start=Math.sqrt(Double.parseDouble(view1.getText().toString()));
-            view1.setText(String.valueOf(start));
-            option="root";
+            Operations.Operation(point, firstroot, view1);
+            Operations.option="root";
         }
     }
 
-    public void Seven(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("7"); } }); }
-    public void Eight(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("8"); } }); }
-    public void Nine(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("9"); } }); }
-    public void Four(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("4"); } }); }
-    public void Five(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("5"); } }); }
-    public void Six(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("6"); } }); }
-    public void One(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("1"); } }); }
-    public void Two(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("2"); } }); }
-    public void Three(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("3"); } }); }
-    public void Zero(View view) { runOnUiThread(new Runnable() { public void run() { view1.append("0"); } }); }
+    public void Seven(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("7");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Eight(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("8");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Nine(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("9");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Four(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("4");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Five(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("5");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Six(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("6");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void One(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("1");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Two(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("2");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Three(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("3");
+                Operations.Numbers(view1);
+            }
+        });
+    }
+
+    public void Zero(View view)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                view1.append("0");
+                Operations.Numbers(view1);
+            }
+        });
+    }
 
     public void Divide(View view)
     {
@@ -156,19 +245,8 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(), "You can't use that with 0 or empty field!", Toast.LENGTH_SHORT).show();
         else
         {
-            point.setEnabled(true);
-            if(firstdivide)
-            {
-                start=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-                option="divide";
-                firstdivide=false;
-            }
-            else
-            {
-                start/=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-            }
+            Operations.Operation(point, firstdivide, view1);
+            Operations.option="divide";
         }
     }
 
@@ -178,122 +256,43 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(), "You can't use that with 0 or empty field!", Toast.LENGTH_SHORT).show();
         else
         {
-            point.setEnabled(true);
-            if(firstmultiply)
-            {
-                start=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-                option="multiply";
-                firstmultiply=false;
-            }
-            else
-            {
-                start*=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-            }
+            Operations.Operation(point, firstmultiply, view1);
+            Operations.option="multiply";
         }
     }
 
     public void Minus(View view)
     {
-        if(view1.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "You can't use that with empty field!", Toast.LENGTH_SHORT).show();
+        if(view1.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "You can't use the Minus button now!", Toast.LENGTH_SHORT).show();
         else
         {
-            point.setEnabled(true);
-            if(firstminus)
-            {
-                start=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-                option="minus";
-                firstminus=false;
-            }
-            else
-            {
-                start-=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-            }
+            Operations.Operation(point, firstminus, view1);
+            Operations.option="minus";
         }
     }
 
     public void Plus(View view)
     {
-        if(view1.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "You can't use that with empty field!", Toast.LENGTH_SHORT).show();
+        if(view1.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "You can't use the Plus button now!", Toast.LENGTH_SHORT).show();
         else
         {
-            point.setEnabled(true);
-            if(firstplus)
-            {
-                start=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-                option="plus";
-                firstplus=false;
-            }
-            else
-            {
-                start+=Double.parseDouble(view1.getText().toString());
-                view1.setText("");
-            }
+            Operations.Operation(point, firstplus, view1);
+            Operations.option="plus";
         }
     }
 
     public void Equal(final View view)
     {
-        if(view1.getText().toString().equals("") || option.equals("else")) Toast.makeText(getApplicationContext(), "You can't use that now!", Toast.LENGTH_SHORT).show();
+        if(view1.getText().toString().equals("")) Toast.makeText(getApplicationContext(), "You can't use the Equal button now!", Toast.LENGTH_SHORT).show();
         else
         {
-            second=Double.parseDouble(view1.getText().toString());
             runOnUiThread(new Runnable()
             {
                 public void run()
                 {
-                    switch(option)
-                    {
-                        case "plus":
-                            if((start+second==Math.floor(start+second)) && !Double.isInfinite(start+second))
-                            { view1.setText(String.valueOf((int)(start+second))); }
-                            else view1.setText(start+second+"");
-                            option="else";
-                            firstplus=true;
-                            break;
-
-                        case "minus":
-                            if((start-second==Math.floor(start-second)) && !Double.isInfinite(start-second))
-                            { view1.setText(String.valueOf((int)(start-second))); }
-                            else view1.setText(start-second+"");
-                            option="else";
-                            firstminus=true;
-                            break;
-
-                        case "multiply":
-                            if((start*second==Math.floor(start*second)) && !Double.isInfinite(start*second))
-                            { view1.setText(String.valueOf((int)(start*second))); }
-                            else view1.setText(start*second+"");
-                            option="else";
-                            firstmultiply=true;
-                            break;
-
-                        case "divide":
-                            if((start/second==Math.floor(start/second)) && !Double.isInfinite(start/second))
-                            { view1.setText(String.valueOf((int)(start/second))); }
-                            else view1.setText(start/second+"");
-                            option="else";
-                            firstdivide=true;
-                            break;
-
-                        case "root":
-                            if((start==Math.floor(start)) && !Double.isInfinite(start))
-                            { view1.setText(String.valueOf((int)(start))); }
-                            else view1.setText(String.valueOf(start));
-                            break;
-
-                        case "pro":
-                            if((start%second==Math.floor(start%second)) && !Double.isInfinite(start%second))
-                            { view1.setText(String.valueOf((int)(start%second))); }
-                            else view1.setText(start%second+"");
-                            option="else";
-                            firstdivide=true;
-                            break;
-                    }
+                    if ((Operations.start == Math.floor(Operations.start)) && !Double.isInfinite(Operations.start))
+                    { view1.setText(String.valueOf((int) (Operations.start))); }
+                    else view1.setText(Operations.start + "");
                 }
             });
         }
@@ -313,6 +312,5 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-
     }
 }
